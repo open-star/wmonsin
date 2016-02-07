@@ -140,19 +140,22 @@ module.exports = router;
 // init db data
 try {
     // root user
-    wrapper.FindOne(null, 1000, AccountModel, {username: config.user}, (res:any, account:any):void => {
-        if (!account) {
-            logger.trace("Creating init user");
-            AccountModel.register(new AccountModel({username: config.user, type: "Admin"}),
-                config.password,
-                function (error, account) {
-                    if (!error) {
-                        logger.trace("Created");
-                    } else {
-                        logger.trace("Error");
-                    }
-                });
-        }
+
+    _.each(config.initusers, (user) => {
+        wrapper.FindOne(null, 1000, AccountModel, {username: user.user}, (res:any, account:any):void => {
+            if (!account) {
+                logger.trace("Creating init user");
+                AccountModel.register(new AccountModel({username: user.user, type: user.type}),
+                    user.password,
+                    function (error, account) {
+                        if (!error) {
+                            logger.trace("Created");
+                        } else {
+                            logger.trace("Error");
+                        }
+                    });
+            }
+        });
     });
 
     // init schema

@@ -17,6 +17,7 @@ var minifycss = require('gulp-minify-css');
 gulp.task('copy', [], () => {
     return gulp.src(
         [
+            'init.js',
             'bin/www',
             'app.js',
             'package.json',
