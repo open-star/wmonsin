@@ -140,7 +140,7 @@ module.exports = router;
 // init db data
 try {
     // root user
-    wrapper.FindOne(null, 1000, AccountModel, {username: "root"}, (res:any, account:any):void => {
+    wrapper.FindOne(null, 1000, AccountModel, {username: config.user}, (res:any, account:any):void => {
         if (!account) {
             logger.trace("Creating init user");
             AccountModel.register(new AccountModel({username: config.user, type: "Admin"}),
