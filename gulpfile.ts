@@ -4,7 +4,7 @@ declare function require(x:string):any;
 
 var gulp = require('gulp');
 
-gulp.task('default', [], () => {
+gulp.task('default', () => {
 
     return gulp.src(
         [
