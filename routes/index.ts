@@ -304,6 +304,10 @@ router.get('/backend/partials/patient/description/:id', (req:any, res:any, next:
     });
 });
 
+router.get('/front/dialog/confirmdialog', (req:any, res:any):void => {
+    res.render('front/dialog/confirmdialog');
+});
+
 router.get('/backend/partials/patient/patientacceptdialog', (req:any, res:any):void => {
     res.render('backend/partials/patient/patientacceptdialog');
 });

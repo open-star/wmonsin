@@ -134,8 +134,8 @@ function PatientsList(resource:any, success:(value:any, headers:any) => void):vo
     });
 }
 
-controllers.controller('BrowseSController', ["$scope", "$stateParams", "$location", 'Patient', 'PatientQuery', "CurrentPatient", "Global", 'ViewQuery', 'Views',
-    ($scope:any, $stateParams:any, $location:any, Patient:any, PatientQuery:any, CurrentPatient:any, Global:IGlobal, ViewQuery:any, Views:any):void => {
+controllers.controller('BrowseSController', ["$scope", "$stateParams", "$location",'$mdDialog', 'Patient', 'PatientQuery', "CurrentPatient", "Global", 'ViewQuery', 'Views',
+    ($scope:any, $stateParams:any, $location:any, $mdDialog:any, Patient:any, PatientQuery:any, CurrentPatient:any, Global:IGlobal, ViewQuery:any, Views:any):void => {
 
         List(ViewQuery, {}, (data:any):void  => {
             PatientsList(PatientQuery, (patients:any):void => {
@@ -149,6 +149,7 @@ controllers.controller('BrowseSController', ["$scope", "$stateParams", "$locatio
             resource.$get({id: id}, (data:any):void => {
                 if (data != null) {
                     if (data.code === 0) {
+
                         CurrentPatient.id = id;
 
                         CurrentPatient.Category = data.value.Category;
@@ -159,7 +160,15 @@ controllers.controller('BrowseSController', ["$scope", "$stateParams", "$locatio
                         $scope.Input = CurrentPatient.Input;
                         $scope.Sequential =  CurrentPatient.Sequential;
 
-                        $location.path('/browse/0');
+                        $mdDialog.show({
+                            controller: 'ConfirmDialogController',
+                            templateUrl: '/front/dialog/confirmdialog',
+                            targetEvent: ""
+                        }).then((answer:any):void  => {  // Answer
+                            $location.path('/browse/0');
+
+                        }, ():void  => {
+                        });
                     }
                 }
             });
@@ -311,5 +320,30 @@ controllers.controller('WriteController', ["$scope", "$stateParams", "$location"
             Global.socket.emit('server', {value: "1"});
             $scope.send = false;
         });
+
+    }]);
+
+
+controllers.controller('ConfirmDialogController', ['$scope', '$mdDialog', 'CurrentPatient',
+    ($scope:any, $mdDialog:any, CurrentPatient:any):void  => {
+
+        $scope.kana =  CurrentPatient.Information.kana;
+        $scope.name =  CurrentPatient.Information.name;
+        $scope.time = CurrentPatient.Information.time;
+        $scope.gender =   CurrentPatient.Information.gender;
+        $scope.birthday =  CurrentPatient.Information.birthday;
+        $scope.patientid = CurrentPatient.Information.patientid;
+
+        $scope.hide = ():void  => {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = ():void  => {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = (answer:any):void  => {
+            $mdDialog.hide($scope);
+        };
 
     }]);
