@@ -604,7 +604,7 @@ controllers.controller('DescriptionController', ['$scope', '$mdBottomSheet', '$m
                              //   d.setTime(Date.parse(data.value.Information.birthday));
                              //   $scope.birthday = d;
 
-                                $scope.birthday = data.value.Information.birthday;
+                             //      $scope.birthday = data.value.Information.birthday;
                                 $scope.Information = data.value.Information;
                             } else {
                                 $mdToast.show($mdToast.simple().content(data.message));
@@ -652,7 +652,7 @@ controllers.controller('DescriptionController', ['$scope', '$mdBottomSheet', '$m
                 patientinformation.patientid = $scope.Information.patientid;
                 patientinformation.birthday = $scope.Information.birthday; //$scope.birthday.toDateString(); //  $scope.Information.birthday;
                 patientinformation.gender = $scope.Information.gender;
-
+                patientinformation.memo = $scope.Information.memo;
                 patientinformation.$update({id: CurrentPatient.id}, (result:any):void => {
                         $mdToast.show($mdToast.simple().content("OK."));
                 });
