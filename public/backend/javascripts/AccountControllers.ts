@@ -770,7 +770,7 @@ controllers.controller('AccountsController', ['$scope', '$state', "$mdDialog", '
                 $mdDialog.show({
                     controller: 'AccountDeleteDialogController',
                     templateUrl: '/backend/partials/account/deletedialog',
-                    targetEvent: id
+                    targetEvent: null
                 }).then((answer:any):void => {  // Answer
                     var account:IAccount = new Account();
                     $scope.progress = true;
@@ -967,7 +967,7 @@ controllers.controller('DepartmentsController', ['$scope', '$state', "$mdDialog"
             $mdDialog.show({
                 controller: 'DepartmentDeleteDialogController',
                 templateUrl: '/backend/partials/edit/departmentdeletedialog',
-                targetEvent: id
+                targetEvent: null
             }).then((answer:any):void => {  // Answer
                 var view:IView = new View();
                 $scope.progress = true;
@@ -1069,7 +1069,7 @@ controllers.controller('DepartmentEditController', ['$scope', '$state', '$mdDial
                 $mdDialog.show({
                     controller: 'PageDeleteDialogController',
                     templateUrl: '/backend/partials/edit/pagedeletedialog',
-                    targetEvent: index
+                    targetEvent: null
                 }).then((answer:any):void => {  // Answer
                     CurrentView.Data.Pages[index] = null;
                     CurrentView.Data.Pages = _.compact(CurrentView.Data.Pages);
@@ -1372,7 +1372,7 @@ controllers.controller('PageEditController', ['$scope', '$state', '$mdDialog', '
                 $mdDialog.show({
                     controller: 'TextDeleteDialogController',
                     templateUrl: '/backend/partials/edit/item/check/textdeletedialog',
-                    targetEvent: index
+                    targetEvent: null
                 }).then((answer:any):void => {  // Answer
                     CurrentView.Data.Pages[CurrentView.Page].items[index] = null;
                     CurrentView.Data.Pages[CurrentView.Page].items = _.compact(CurrentView.Data.Pages[CurrentView.Page].items);
@@ -1384,7 +1384,7 @@ controllers.controller('PageEditController', ['$scope', '$state', '$mdDialog', '
                 $mdDialog.show({
                     controller: 'CheckDeleteDialogController',
                     templateUrl: '/backend/partials/edit/item/check/checkdeletedialog',
-                    targetEvent: index
+                    targetEvent: null
                 }).then((answer:any):void => {  // Answer
                     CurrentView.Data.Pages[CurrentView.Page].items[index] = null;
                     CurrentView.Data.Pages[CurrentView.Page].items = _.compact(CurrentView.Data.Pages[CurrentView.Page].items);
@@ -1396,7 +1396,7 @@ controllers.controller('PageEditController', ['$scope', '$state', '$mdDialog', '
                 $mdDialog.show({
                     controller: 'SelectDeleteDialogController',
                     templateUrl: '/backend/partials/edit/item/select/selectdeletedialog',
-                    targetEvent: index
+                    targetEvent: null
                 }).then((answer:any):void => {  // Answer
                     CurrentView.Data.Pages[CurrentView.Page].items[index] = null;
                     CurrentView.Data.Pages[CurrentView.Page].items = _.compact(CurrentView.Data.Pages[CurrentView.Page].items);
@@ -1408,7 +1408,7 @@ controllers.controller('PageEditController', ['$scope', '$state', '$mdDialog', '
                 $mdDialog.show({
                     controller: 'NumericDeleteDialogController',
                     templateUrl: '/backend/partials/edit/item/numeric/numericdeletedialog',
-                    targetEvent: index
+                    targetEvent: null
                 }).then((answer:any):void => {  // Answer
                     CurrentView.Data.Pages[CurrentView.Page].items[index] = null;
                     CurrentView.Data.Pages[CurrentView.Page].items = _.compact(CurrentView.Data.Pages[CurrentView.Page].items);
@@ -1420,7 +1420,7 @@ controllers.controller('PageEditController', ['$scope', '$state', '$mdDialog', '
                 $mdDialog.show({
                     controller: 'PictureDeleteDialogController',
                     templateUrl: '/backend/partials/edit/item/picture/picturedeletedialog',
-                    targetEvent: index
+                    targetEvent: null
                 }).then((answer:any):void => {  // Answer
                     CurrentView.Data.Pages[CurrentView.Page].picture[0] = null;
                     CurrentView.Data.Pages[CurrentView.Page].picture = _.compact(CurrentView.Data.Pages[CurrentView.Page].picture);
@@ -1432,7 +1432,7 @@ controllers.controller('PageEditController', ['$scope', '$state', '$mdDialog', '
                 $mdDialog.show({
                     controller: 'ButtonDeleteDialogController',
                     templateUrl: '/backend/partials/edit/item/button/buttondeletedialog',
-                    targetEvent: index
+                    targetEvent: null
                 }).then((answer:any):void => {  // Answer
                     CurrentView.Data.Pages[CurrentView.Page].items[index] = null;
                     CurrentView.Data.Pages[CurrentView.Page].items = _.compact(CurrentView.Data.Pages[CurrentView.Page].items);
@@ -1812,7 +1812,7 @@ controllers.controller('DepartmentDeleteDialogController', ['$scope', '$mdDialog
             $mdDialog.cancel();
         };
 
-        $scope.answer = (answer:any):void  => {
+        $scope.answer = ():void  => {
             $mdDialog.hide($scope);
         };
 
