@@ -71,6 +71,7 @@ interface IPatient extends angular.resource.IResource<any> {
     Input:any;
     Information:{name:string;time:string;kana:string;insurance:string;patientid:string;birthday:string;gender:string};
     Category:string;
+    Group:string;
     Sequential:number;
     Status:string;
     $update:any;
@@ -78,6 +79,7 @@ interface IPatient extends angular.resource.IResource<any> {
 
 interface IView extends angular.resource.IResource<any> {
     Name: string;
+    Group:string;
     Pages: string;
     $update:any;
 }
@@ -470,6 +472,7 @@ controllers.controller('PatientsController', ['$scope', '$state', '$stateParams'
                                     return String.fromCharCode(s.charCodeAt(0) + 0x60);
                                 });
 
+                                patient.Group = answer.items.group;
                                 patient.Information.kana = answer.items.kana;
                                 patient.Information.insurance = answer.items.insurance;
                                 patient.Category = answer.items.category;
@@ -901,6 +904,7 @@ controllers.controller('DepartmentsController', ['$scope', '$state', "$mdDialog"
             }).then((answer:any):void => { // Answer
                 var view:IView = new ViewCreate();
                 view.Name = answer.items.department;
+                view.Group = answer.items.group;
                 view.$save({}, (result:any):void => {
                     if (result) {
                         if (result.code === 0) {
@@ -933,7 +937,8 @@ controllers.controller('DepartmentsController', ['$scope', '$state', "$mdDialog"
                 }).then((answer:any):void => { // Answer
                     var view:IView = new ViewCreate();
                     view.Pages = data.value.Pages;
-                    view.Name = answer.items.department;
+                    view.Name = answer.department;
+                    view.Group = answer.group;
                     view.$save({}, (result:any):void => {
                         if (result) {
                             if (result.code === 0) {
@@ -1021,6 +1026,7 @@ controllers.controller('DepartmentEditController', ['$scope', '$state', '$mdDial
             $scope.DepartmentUpdate = ():void => {
                 var view:IView = new View();
                 view.Name = CurrentView.Data.Name;
+                view.Group = CurrentView.Data.Group;
                 view.Pages = CurrentView.Data.Pages;
                 view.$update({id: CurrentView.Data._id}, (result:any):void => {
                     if (result) {
@@ -1110,6 +1116,7 @@ controllers.controller('PageEditController', ['$scope', '$state', '$mdDialog', '
             $scope.DepartmentUpdate = ():void => {
                 var view:IView = new View();
                 view.Name = CurrentView.Data.Name;
+                view.Group = CurrentView.Data.Group;
                 view.Pages = CurrentView.Data.Pages;
                 view.$update({id: CurrentView.Data._id}, (result:any):void => {
                     if (result) {
@@ -1786,6 +1793,9 @@ controllers.controller('DepartmentCreateDialogController', ['$scope', '$mdDialog
 
 controllers.controller('DepartmentCopyDialogController', ['$scope', '$mdDialog', 'ViewQuery', 'items',
     ($scope:any, $mdDialog:any, ViewQuery:any, items:any):void  => {
+
+        $scope.department = items.value.Name;
+        $scope.group = items.value.Group;
 
         $scope.hide = ():void => {
             $mdDialog.hide();

@@ -64,6 +64,7 @@ class ViewController {
                             if (count === 0) {
                                 var view:any = new ViewModel();
                                 view.Name = req.body.Name;
+                                view.Group = req.body.Group;
                                 view.Pages = req.body.Pages;
                                 wrapper.Save(res, number, view, (res:any, view:any):void  => {
                                     wrapper.SendResult(res, 0, "OK", view);
@@ -99,6 +100,7 @@ class ViewController {
                 wrapper.If(res, number, (user.type != "Viewer"), (res:any):void  => {
                     wrapper.FindById(res, number, ViewModel, req.params.id, (res:any, view:any):void => {
                         view.Name = req.body.Name;
+                        view.Group = req.body.Group;
                         view.Pages = req.body.Pages;
                         wrapper.Save(res, number, view, (res:any, object:any):void  => {
                             wrapper.SendResult(res, 0, "OK", view);

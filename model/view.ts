@@ -14,6 +14,7 @@ var Schema = mongoose.Schema;
 
 var View = new Schema({
     Name: {type: String, required: true},
+    Group: {type: String, required: true},
     Pages: {}
 });
 
