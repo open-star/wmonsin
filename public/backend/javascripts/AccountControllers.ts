@@ -1750,13 +1750,25 @@ controllers.controller('PatientAcceptDialogController', ['$scope', '$mdDialog', 
     ($scope:any, $mdDialog:any, ViewQuery:any, items:any):void  => {
 
         $scope.items = items;
-        $scope.categories = [];
 
+        $scope.groups = [];
         $scope.progress = true;
         List(ViewQuery, {}, (data:any):void  => {
-            _.each(data, (item:any, index:number):void => {
-                $scope.categories.push(item.Name);
+
+            _.map(data, (item:any, index:number):void => {
+                $scope.groups.push(item.Group);
             });
+
+            $scope.$watch('items.group', ():void => {
+                $scope.categories = [];
+                var selected = $scope.items.group;
+                List(ViewQuery, {Group: selected}, (data:any):void  => {
+                    _.each(data, (item:any, index:number):void => {
+                        $scope.categories.push(item.Name);
+                    });
+                });
+            });
+
             $scope.progress = false;
         });
 

@@ -61,12 +61,10 @@ md-dialog.box-edge(flex)
 
                 div(layout="column", layout-align="center center")
                     h5 診療科
-                    md-input-container(flex)
-                        label 診療科
-                        input(ng-model="items.group", data-ng-required="true", name="group", placeholder='Enter Group', md-maxlength="30", required)
-                        div(ng-messages="validate.group.$error")
-                            div(ng-message="required") 必ず入力してください.
-                            div(ng-message="md-maxlength") もうすこし短くしてください.
+                    md-select(placeholder="診療科", ng-model="items.group",name="group", required)
+                        md-option(ng-repeat="group in groups", value="{{group}}", ng-bind="group")
+                    div(ng-messages="validate.group.$error")
+                        div(ng-message="required") 必ず入力してください.
 
                 div(layout="column", layout-align="center center")
                     h5 問診票

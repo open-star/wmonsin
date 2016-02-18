@@ -133,7 +133,7 @@ class ViewController {
             var number:number = 23000;
             wrapper.Authenticate(req, res, number, (user:any, res:any):void  => {
                 var query:any = JSON.parse(decodeURIComponent(req.params.query));
-                wrapper.Find(res, number, ViewModel, {}, {}, {}, (res:any, views:any):void  => {
+                wrapper.Find(res, number, ViewModel, query, {}, {}, (res:any, views:any):void  => {
                     wrapper.SendResult(res, 0, "OK", views);
                     logger.trace("end /view/:id");
                 });
