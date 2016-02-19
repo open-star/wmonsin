@@ -4,11 +4,13 @@
     This software is released under the MIT License.
     http://opensource.org/licenses/mit-license.php
 
+- var content = {headline:"患者"}
+
 md-content.background
     md-progress-circular.md-accent(ng-show="progress", md-mode="indeterminate", style="position:absolute;top:50%;left:50%;")
     md-card.box-edge
         md-card-content.layout-padding
-            h1.md-headline 患者
+            h1.md-headline #{content.headline}
             div(layout="row", layout-align="start center", hide-gt-xs)
                 div(layout="column")
                     div

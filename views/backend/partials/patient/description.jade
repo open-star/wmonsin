@@ -4,10 +4,12 @@
     This software is released under the MIT License.
     http://opensource.org/licenses/mit-license.php
 
+- var content = {headline:"問診内容"}
+
 md-content.background
     md-card.box-edge
         md-card-content
-            h1.md-headline 問診内容
+            h1.md-headline #{content.headline}
             h4(ng-bind="Information.time")
             h3 {{Information.kana}} [ {{Information.name}} ]
             h3 レセコンの患者ID [ {{Information.patientid}} ]
@@ -103,13 +105,13 @@ md-content.background
                                             label レセコンの患者ID
                                             input(ng-model="Information.patientid", name="patientid", placeholder='レセコンの患者ID', md-maxlength="30")
                                             div(ng-messages="validate.patientid.$error")
-                                                div(ng-message="md-maxlength") too long
+                                                h6(ng-message="md-maxlength") too long
 
                                         md-input-container(flex)
                                             label 誕生日
                                             input(ng-model="Information.birthday", name="birthday", placeholder='誕生日', md-maxlength="30")
                                             div(ng-messages="validate.birthday.$error")
-                                                div(ng-message="md-maxlength") too long
+                                                h6(ng-message="md-maxlength") too long
 
                                         div
                                             h5 性別
