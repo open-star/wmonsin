@@ -9,8 +9,6 @@
 
 'use strict';
 
-
-
 var app:angular.IModule = angular.module('PatientsApplication', ['ui.router', 'PatientsControllers', 'TopControllers']);
 /*
 app.config(['$translateProvider', function($translateProvider) {

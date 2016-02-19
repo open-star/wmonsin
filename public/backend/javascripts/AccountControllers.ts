@@ -443,7 +443,6 @@ controllers.controller('PatientsController', ['$scope', '$state', '$stateParams'
                         if (data.code === 0) {
                             var items:{count:number} = {count: 0};
                             items.count = data.value;
-
                             $mdDialog.show({
                                 controller: 'PatientAcceptDialogController',
                                 templateUrl: '/backend/partials/patient/patientacceptdialog',
