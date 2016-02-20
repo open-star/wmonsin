@@ -59,7 +59,7 @@ class ViewController {
             var number:number = 19000;
             wrapper.Authenticate(req, res, number, (user:any, res:any):void  => {
                 wrapper.If(res, number, (user.type != "Viewer"), (res:any):void  => {
-                    ViewModel.count({Name: req.body.Name}, (error:any, count:number):void => {
+                    ViewModel.count({$and:[{Name: req.body.Name}, {Group: req.body.Group}]}, (error:any, count:number):void => {
                         if (!error) {
                             if (count === 0) {
                                 var view:any = new ViewModel();

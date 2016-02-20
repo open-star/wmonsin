@@ -1754,9 +1754,7 @@ controllers.controller('PatientAcceptDialogController', ['$scope', '$mdDialog', 
         $scope.progress = true;
         List(ViewQuery, {}, (data:any):void  => {
 
-            _.map(data, (item:any, index:number):void => {
-                $scope.groups.push(item.Group);
-            });
+            $scope.groups =  _.uniq(_.pluck(data, 'Group'));
 
             $scope.$watch('items.group', ():void => {
                 $scope.categories = [];
