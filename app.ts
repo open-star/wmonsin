@@ -84,7 +84,7 @@ alert_log({}, 'Jade Start.');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
-app.use(bodyParser({limit: '50mb'}));
+//app.use(bodyParser({limit: '50mb'}));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
@@ -109,9 +109,9 @@ process.on('exit', function (code) {
     logger.info("exit " + code);
 });
 
-process.on('SIGINT', function () {
-    logger.info("SIGINT");
-});
+//process.on('SIGINT', function () {
+//    logger.info("SIGINT");
+//});
 
 app.use(session({
     name: config.sessionName,
@@ -139,11 +139,10 @@ app.use(passport.session());
 
 
 if (config.state === 'development') {
-    app.use(morgan({format: 'original', immediate: true}));
+    app.use(morgan('original',{immediate: true}));
 } else {
     var rotatestream = require('logrotate-stream');
-    app.use(morgan({
-        format: 'combined',
+    app.use(morgan('combined',{
         stream: rotatestream({file: __dirname + '/logs/access.log', size: '100k', keep: 3})
     }));
 }
