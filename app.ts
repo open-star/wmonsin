@@ -139,12 +139,10 @@ app.use(passport.session());
 
 
 if (config.state === 'development') {
-    app.use(morgan('original',{immediate: true}));
+    app.use(morgan('original', {immediate: true}));
 } else {
     var rotatestream = require('logrotate-stream');
-    app.use(morgan('combined',{
-        stream: rotatestream({file: __dirname + '/logs/access.log', size: '100k', keep: 3})
-    }));
+    app.use(morgan('combined', {stream: rotatestream({file: __dirname + '/logs/access.log', size: '100k', keep: 3})}));
 }
 
 alert_log({}, 'Access Log');
