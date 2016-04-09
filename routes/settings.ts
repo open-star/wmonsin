@@ -1085,7 +1085,7 @@ class Configure {
                     {
                         headline: "ふだんの体温",
                         items: [
-                            {label: "ふだんの体温", name: "(℃)", model: "", type: "numeric"},
+                            {label: "ふだんの体温", name: "体温(℃)", model: "", type: "numeric"},
                             {
                                 label: "次へ",
                                 name: "次へ",
@@ -1188,7 +1188,7 @@ class Configure {
                                 name: "次へ",
                                 model: "",
                                 type: "button",
-                                validate: true,
+                                validate: false,
                                 path: "/browse/5",
                                 class: "md-accent"
                             },

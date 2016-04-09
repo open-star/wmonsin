@@ -33,5 +33,5 @@ gulp.task('default', () => {
         ],
         {base: '..'}
     )
-        .pipe(gulp.dest('../womnsin_image'));
+        .pipe(gulp.dest('../wmonsin_image'));
 });
