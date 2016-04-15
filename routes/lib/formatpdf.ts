@@ -45,11 +45,19 @@ class FormatPDF {
         this.doc.font(this.font).fontSize(12).text(value, this.originx + this.stringoffsetx + this.nameboxwidth, this.originy + this.stringoffsety);
     }
 
-    public write(patient:any):any {
+    public write(patient:any, user:any):any {
 
         this.doc.info['Title'] = patient.Information.name;
         this.doc.info['Author'] = 'WMONSIN';
         this.doc.info['Subject'] = patient.Information.kana;
+
+
+        this.originy += 20;
+        this.TextBox("ユーザ", user.username);
+
+        this.originy += 20;
+        this.TextBox("タイプ", user.type);
+
 
         this.originy += 20;
         this.TextBox("カナ", patient.Information.kana);
@@ -60,11 +68,11 @@ class FormatPDF {
         this.originy += 20;
 
 
-      //  var date = patient.Date.getFullYear() + "/" + (patient.Date.getMonth() + 1) + "/" + patient.Date.getDate();
-      //  var time = patient.Date.getHours() + ":" + patient.Date.getMinutes() + ":" + patient.Date.getSeconds();
-      //  this.TextBox("日時", date + " " + time);
+        var date = patient.Date.getFullYear() + "/" + (patient.Date.getMonth() + 1) + "/" + patient.Date.getDate();
+        var time = patient.Date.getHours() + ":" + patient.Date.getMinutes() + ":" + patient.Date.getSeconds();
+        this.TextBox("日時", date + " " + time);
 
-        this.TextBox("日時", patient.Date.toLocaleString());
+    //    this.TextBox("日時", patient.Date.toLocaleString());
 
         _.each(patient.Input, (item) => {
 

@@ -36,7 +36,7 @@ class PdfController {
                 if (!error) {
                     if (patient) {
                         var format = new formatpdf;
-                        var doc = format.write(patient);
+                        var doc = format.write(patient, request.user);
                         doc.write('public/output/output.pdf', () => {
                             var responsePDF = fs.createReadStream('public/output/output.pdf');
                             responsePDF.pipe(response);
