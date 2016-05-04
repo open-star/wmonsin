@@ -5,9 +5,10 @@
  http://opensource.org/licenses/mit-license.php
  */
 
-/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../../../typings/browser.d.ts" />
 
 'use strict';
+
 
 var app:angular.IModule = angular.module('PatientsApplication', ['ui.router', 'PatientsControllers', 'TopControllers']);
 /*

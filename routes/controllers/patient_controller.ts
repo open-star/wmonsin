@@ -60,6 +60,30 @@ class PatientController {
         });
     }
 
+    public post_patient_accept_2(req:any, res:any):void {
+        logger.trace("begin /patient/accept2");
+        var number:number = 1000;
+        var query = {"$and": [{'Information.insurance': req.body.Information.insurance}, {'Information.time': req.body.Information.time}]};
+        wrapper.Find(res, number, PatientModel, query, {}, {}, (res:any, docs:any) => {
+            if (docs.length === 0) {
+                var patient:any = new PatientModel();
+                patient.Information = req.body.Information;
+                patient.Date = new Date();
+                patient.Category = req.body.Category;
+                patient.Group = req.body.Group;
+                patient.Status = req.body.Status;
+                patient.Input = req.body.Input;
+                patient.Sequential = req.body.Sequential;
+                wrapper.Save(res, number, patient, (res:any, patient:any) => {
+                    wrapper.SendResult(res, 0, "OK", patient.Status);
+                    logger.trace("end /patient/accept");
+                });
+            } else {
+                wrapper.SendResult(res, number + 10, "", {});
+            }
+        });
+    }
+
     public get_patient_id(req:any, res:any):void {
         logger.trace("begin /patient/:id");
         wrapper.Guard(req, res, (req:any, res:any) => {

@@ -5,7 +5,7 @@
  http://opensource.org/licenses/mit-license.php
  */
 
-/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../../../typings/browser.d.ts" />
 
 /**
  0 - ok

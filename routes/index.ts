@@ -489,6 +489,10 @@ router.get('/front/partials/write', (req:any, res:any):void => {
 
 /*! patient */
 router.post('/patient/accept', partient_controller.post_patient_accept);
+router.post('/patient/accept2', partient_controller.post_patient_accept_2);
+
+
+
 router.get('/patient/:id', partient_controller.get_patient_id);
 router.put('/patient/:id', partient_controller.put_patient_id);
 router.delete('/patient/:id', partient_controller.delete_patient_id);
