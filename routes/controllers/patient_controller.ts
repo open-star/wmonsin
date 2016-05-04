@@ -63,7 +63,7 @@ class PatientController {
     public post_patient_accept_2(req:any, res:any):void {
         logger.trace("begin /patient/accept2");
         var number:number = 1000;
-        var query = {"$and": [{'Information.insurance': req.body.Information.insurance}, {'Information.time': req.body.Information.time}]};
+        var query = {"$and": [{'Information.patientid': req.body.Information.patientid}, {'Information.time': req.body.Information.time}]};
         wrapper.Find(res, number, PatientModel, query, {}, {}, (res:any, docs:any) => {
             if (docs.length === 0) {
                 var patient:any = new PatientModel();
