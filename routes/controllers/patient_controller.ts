@@ -60,7 +60,7 @@ class PatientController {
         });
     }
 
-    public post_patient_accept_2(req:any, res:any):void {
+    public post_patient_accept_by_bridge(req:any, res:any):void {
         logger.trace("begin /patient/accept2");
         var number:number = 1000;
         var query = {"$and": [{'Information.patientid': req.body.Information.patientid}, {'Information.time': req.body.Information.time}]};
@@ -144,6 +144,16 @@ class PatientController {
         });
     }
 
+    public get_patient_query_query_by_bridge(req:any, res:any):void {
+        logger.trace("begin /patient/query2/:query");
+        var number:number = 5000;
+        var query = JSON.parse(decodeURIComponent(req.params.query));
+        wrapper.Find(res, number, PatientModel, query, {}, {sort: {Date: -1}}, (res:any, docs:any):void  => {
+            wrapper.SendResult(res, 0, "OK", docs);
+            logger.trace("end /patient/query/:query");
+        });
+    }
+    
     public get_patient_count_query(req:any, res:any):void {
         logger.trace("begin /patient/count/:query");
         wrapper.Guard(req, res, (req:any, res:any):void  => {

@@ -489,14 +489,13 @@ router.get('/front/partials/write', (req:any, res:any):void => {
 
 /*! patient */
 router.post('/patient/accept', partient_controller.post_patient_accept);
-router.post('/patient/accept2', partient_controller.post_patient_accept_2);
-
-
+router.post('/patient/accept2', partient_controller.post_patient_accept_by_bridge);
 
 router.get('/patient/:id', partient_controller.get_patient_id);
 router.put('/patient/:id', partient_controller.put_patient_id);
 router.delete('/patient/:id', partient_controller.delete_patient_id);
 router.get('/patient/query/:query', partient_controller.get_patient_query_query);
+router.get('/patient/query2/:query', partient_controller.get_patient_query_query_by_bridge);
 router.get('/patient/count/:query', partient_controller.get_patient_count_query);
 router.get('/patient/status/:id', partient_controller.get_patient_status_id);
 router.put('/patient/status/:id', partient_controller.put_patient_status_id);
