@@ -117,11 +117,11 @@ class PatientController {
 
     public delete_patient_id(req:any, res:any):void {
         logger.trace("begin /patient/:id");
-        wrapper.Guard(req, res, (req:any, res:any):void  => {
+        wrapper.Guard(req, res, (req:any, res:any):void => {
             var number:number = 4000;
-            wrapper.Authenticate(req, res, number, (user:any, res:any):void  => {
-                wrapper.If(res, number, (user.type != "Viewer"), (res:any):void  => {
-                    wrapper.Remove(res, number, PatientModel, req.params.id, (res:any):void  => {
+            wrapper.Authenticate(req, res, number, (user:any, res:any):void => {
+                wrapper.If(res, number, (user.type != "Viewer"), (res:any):void => {
+                    wrapper.Remove(res, number, PatientModel, req.params.id, (res:any):void => {
                         wrapper.SendResult(res, 0, "OK", {});
                         logger.trace("end /patient/:id");
                     });
@@ -132,11 +132,11 @@ class PatientController {
 
     public get_patient_query_query(req:any, res:any):void {
         logger.trace("begin /patient/query/:query");
-        wrapper.Guard(req, res, (req:any, res:any):void  => {
+        wrapper.Guard(req, res, (req:any, res:any):void => {
             var number:number = 5000;
-            wrapper.Authenticate(req, res, number, (user:any, res:any):void  => {
+            wrapper.Authenticate(req, res, number, (user:any, res:any):void => {
                 var query = JSON.parse(decodeURIComponent(req.params.query));
-                wrapper.Find(res, number, PatientModel, query, {}, {sort: {Date: -1}}, (res:any, docs:any):void  => {
+                wrapper.Find(res, number, PatientModel, query, {}, {sort: {Date: -1}}, (res:any, docs:any):void => {
                     wrapper.SendResult(res, 0, "OK", docs);
                     logger.trace("end /patient/query/:query");
                 });
@@ -144,21 +144,32 @@ class PatientController {
         });
     }
 
+    static TodayQuery():any {
+        var today:Date = new Date();
+        today.setHours(23, 59, 59, 99);
+        var yesterday:Date = new Date();
+        yesterday.setHours(0, 0, 0, 1);
+        return {$and: [{Date: {$lte: today}}, {Date: {$gt: yesterday}}]};
+    }
+
     public get_patient_query_query_by_bridge(req:any, res:any):void {
         logger.trace("begin /patient/query2/:query");
         var number:number = 5000;
         var query = JSON.parse(decodeURIComponent(req.params.query));
-        wrapper.Find(res, number, PatientModel, query, {}, {sort: {Date: -1}}, (res:any, docs:any):void  => {
+        var q = PatientController.TodayQuery();
+
+        var query2 = {$and: [query, q]};
+        wrapper.Find(res, number, PatientModel, query, {}, {sort: {Date: -1}}, (res:any, docs:any):void => {
             wrapper.SendResult(res, 0, "OK", docs);
             logger.trace("end /patient/query/:query");
         });
     }
-    
+
     public get_patient_count_query(req:any, res:any):void {
         logger.trace("begin /patient/count/:query");
-        wrapper.Guard(req, res, (req:any, res:any):void  => {
+        wrapper.Guard(req, res, (req:any, res:any):void => {
             var number:number = 6000;
-            wrapper.Authenticate(req, res, number, (user:any, res:any):void  => {
+            wrapper.Authenticate(req, res, number, (user:any, res:any):void => {
                 var query = JSON.parse(decodeURIComponent(req.params.query));
                 PatientModel.count(query, (error:any, docs:any):void => {
                     if (!error) {
@@ -178,10 +189,10 @@ class PatientController {
 
     public get_patient_status_id(req:any, res:any):void {
         logger.trace("begin /patient/status/:id");
-        wrapper.Guard(req, res, (req:any, res:any):void  => {
+        wrapper.Guard(req, res, (req:any, res:any):void => {
             var number:number = 7000;
-            wrapper.Authenticate(req, res, number, (user:any, res:any):void  => {
-                wrapper.FindById(res, number, PatientModel, req.params.id, (res:any, patient:any):void  => {
+            wrapper.Authenticate(req, res, number, (user:any, res:any):void => {
+                wrapper.FindById(res, number, PatientModel, req.params.id, (res:any, patient:any):void => {
                     wrapper.SendResult(res, 0, "OK", patient.Status);
                     logger.trace("end /patient/status/:id");
                 });
@@ -191,13 +202,13 @@ class PatientController {
 
     public put_patient_status_id(req:any, res:any):void {
         logger.trace("begin /patient/status/:id");
-        wrapper.Guard(req, res, (req:any, res:any):void  => {
+        wrapper.Guard(req, res, (req:any, res:any):void => {
             var number:number = 8000;
-            wrapper.Authenticate(req, res, number, (user:any, res:any):void  => {
-                wrapper.If(res, number, (user.type != "Viewer"), (res:any):void  => {
-                    wrapper.FindById(res, number, PatientModel, req.params.id, (res:any, patient:any):void  => {
+            wrapper.Authenticate(req, res, number, (user:any, res:any):void => {
+                wrapper.If(res, number, (user.type != "Viewer"), (res:any):void => {
+                    wrapper.FindById(res, number, PatientModel, req.params.id, (res:any, patient:any):void => {
                         patient.Status = req.body.Status;
-                        wrapper.Save(res, number, patient, (res:any, patient:any):void  => {
+                        wrapper.Save(res, number, patient, (res:any, patient:any):void => {
                             wrapper.SendResult(res, 0, "OK", patient.Status);
                             logger.trace("end /patient/status/:id");
                         });
@@ -209,13 +220,13 @@ class PatientController {
 
     public put_patient_information_id(req:any, res:any):void {
         logger.trace("begin /patient/information/:id");
-        wrapper.Guard(req, res, (req:any, res:any):void  => {
+        wrapper.Guard(req, res, (req:any, res:any):void => {
             var number:number = 8100;
-            wrapper.Authenticate(req, res, number, (user:any, res:any):void  => {
-                wrapper.If(res, number, (user.type != "Viewer"), (res:any):void  => {
-                    wrapper.FindById(res, number, PatientModel, req.params.id, (res:any, patient:any):void  => {
+            wrapper.Authenticate(req, res, number, (user:any, res:any):void => {
+                wrapper.If(res, number, (user.type != "Viewer"), (res:any):void => {
+                    wrapper.FindById(res, number, PatientModel, req.params.id, (res:any, patient:any):void => {
                         patient.Information = req.body;
-                        wrapper.Save(res, number, patient, (res:any, patient:any):void  => {
+                        wrapper.Save(res, number, patient, (res:any, patient:any):void => {
                             wrapper.SendResult(res, 0, "OK", patient.Information);
                             logger.trace("end /patient/information/:id");
                         });
@@ -226,11 +237,10 @@ class PatientController {
     }
 
 
-
     public get_api_key_patient_query_query(req:any, res:any):void {
         logger.trace("begin /api/:key/patient/query/:query");
         var number:number = 5000;
-        wrapper.If(res, number, (config.key3 == req.params.key), (res:any):void  => {
+        wrapper.If(res, number, (config.key3 == req.params.key), (res:any):void => {
             var query = JSON.parse(decodeURIComponent(req.params.query));
             wrapper.Find(res, number, PatientModel, query, {}, {sort: {Date: -1}}, (res:any, docs:any):void => {
                 wrapper.SendResult(res, 0, "OK", docs);
