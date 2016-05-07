@@ -28,6 +28,9 @@ class FormatPDF {
     constructor() {
         this.font = "public/font/ttf/ipaexg.ttf";
         this.doc = new PDFDocument;
+
+        this.doc.registerFont('default', 'public/font/ttf/ipaexg.ttf', '');
+
         this.pagehight = 660;
         this.originx = 40;
         this.originy = 40;
@@ -40,9 +43,13 @@ class FormatPDF {
 
     private TextBox(text:string, value:string):void {
         this.doc.rect(this.originx, this.originy, this.nameboxwidth, this.boxhight);
-        this.doc.font(this.font).fontSize(12).text(text, this.originx + this.stringoffsetx, this.originy + this.stringoffsety);
+      //  this.doc.font(this.font).fontSize(12).text(text, this.originx + this.stringoffsetx, this.originy + this.stringoffsety);
+        this.doc.font('default').fontSize(12).text(text, this.originx + this.stringoffsetx, this.originy + this.stringoffsety);
+
+
         this.doc.rect(this.originx + this.nameboxwidth, this.originy, this.valueboxwidth, this.boxhight);
-        this.doc.font(this.font).fontSize(12).text(value, this.originx + this.stringoffsetx + this.nameboxwidth, this.originy + this.stringoffsety);
+     //   this.doc.font(this.font).fontSize(12).text(value, this.originx + this.stringoffsetx + this.nameboxwidth, this.originy + this.stringoffsety);
+        this.doc.font('default').fontSize(12).text(value, this.originx + this.stringoffsetx + this.nameboxwidth, this.originy + this.stringoffsety);
     }
 
     public write(patient:any, user:any):any {
